@@ -5,6 +5,11 @@ pipeline {
         DOCKER_IMAGE_NAME = "pradeepkip/train-schedule"
     }
     stages {
+       stage('Welcome') {
+            steps {
+                echo 'Welcome to the Pipeline'
+            }
+        }
         stage('Build') {
             steps {
                 echo 'Running build automation'
@@ -45,11 +50,6 @@ pipeline {
             steps {
                 input 'Deploy to Production?'
                 milestone(1)
-                kubernetesDeploy{
-                    kubeconfigId: 'kubeconfig',
-                    configs: 'train-schedule-kube.yml',
-                    enableConfigSubstitution: true
-                }
             }
         }
     }
